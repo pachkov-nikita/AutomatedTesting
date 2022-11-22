@@ -10,7 +10,7 @@ import java.util.List;
 
 public class SearchPage {
 
-    public static final String HOME_PAGE_URL = "https://www.amazon.com/";
+    public static final String SEARCH_PAGE_URL = "https://www.amazon.com/";
     private final WebDriver driver;
 
 
@@ -30,7 +30,7 @@ public class SearchPage {
 
     public SearchPage(WebDriver driver) {
         this.driver = driver;
-        driver.get(HOME_PAGE_URL);
+        driver.get(SEARCH_PAGE_URL);
         PageFactory.initElements(driver, this);
     }
 
