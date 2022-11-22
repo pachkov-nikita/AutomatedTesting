@@ -15,7 +15,7 @@ public class ProductPage {
     @FindBy(id = "productTitle")
     WebElement productName;
     @FindBy(id = "add-to-cart-button")
-    WebElement addToCartBtn;
+    WebElement addToCartButton;
     @FindBy(id = "priceblock_ourprice")
     WebElement price;
     @FindBy(className = "a-dropdown-label")
@@ -46,8 +46,10 @@ public class ProductPage {
     }
 
     public void clickAddToCart() {
-        addToCartBtn.click();
+        addToCartButton.click();
     }
 
-
+    public void close() {
+        driver.close();
+    }
 }
