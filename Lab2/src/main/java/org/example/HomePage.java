@@ -45,5 +45,7 @@ public class HomePage {
         return icon;
     }
 
-
+    public void close() {
+        driver.close();
+    }
 }
