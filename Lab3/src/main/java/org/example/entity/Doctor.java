@@ -12,7 +12,6 @@ import javax.persistence.*;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 public class Doctor {
 
@@ -25,7 +24,7 @@ public class Doctor {
     private String firstName;
 
     @Column(name = "secondname")
-    private String lastName;
+    private String secondName;
 
     @Override
     public boolean equals(Object o) {
