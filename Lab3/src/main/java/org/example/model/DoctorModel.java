@@ -9,4 +9,5 @@ import lombok.*;
 public class DoctorModel {
     private String firstName;
     private String secondName;
+    private String speciality;
 }

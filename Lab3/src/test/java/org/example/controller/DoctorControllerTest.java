@@ -33,6 +33,7 @@ public class DoctorControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    //Test1
     @Test
     void isDoctorById() throws Exception {
         MvcResult mvcResult = commonRequest("/doctors/" + "2");
@@ -42,6 +43,7 @@ public class DoctorControllerTest {
         assertThat(doctorById).isNotNull().hasNoNullFieldsOrProperties().has(new Condition<>(d -> d.getFirstName().equals("Ivan"), ""));
     }
 
+    //Test2
     @Test
     void isDoctorByName() throws Exception {
 
@@ -54,7 +56,7 @@ public class DoctorControllerTest {
         assertThat(doctorsByFirstName).isNotEmpty().has(new Condition<>(doctors -> doctors.stream().allMatch(d -> d.getFirstName().equals("Ivan")), ""));
     }
 
-
+    //Test3
     @Test
     void isDoctorBySecondName() throws Exception {
 
@@ -67,7 +69,7 @@ public class DoctorControllerTest {
         assertThat(doctorBySecondName).isNotEmpty().has(new Condition<>(doctors -> doctors.stream().allMatch(d -> d.getSecondName().equals("Ivanov")), ""));
     }
 
-
+    //Test4
     @Test
     void getAllDoctor() throws Exception {
 
@@ -76,6 +78,19 @@ public class DoctorControllerTest {
         var doctors = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), List.class);
 
         assertThat(doctors).isNotEmpty().hasSize(3);
+    }
+
+    //Test5
+    @Test
+    void doctorBySpeciality() throws Exception {
+
+        String speciality = "hiryrg";
+        DoctorModel doctorModel = DoctorModel.builder().speciality(speciality).build();
+
+        MvcResult mvcResult = requestWithModel("/doctors/speciality", doctorModel);
+        var doctors = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), List.class);
+
+        assertThat(doctors).isNotEmpty().hasSize(2);
     }
 
 

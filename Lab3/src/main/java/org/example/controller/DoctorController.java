@@ -24,6 +24,11 @@ public class DoctorController {
         return doctorRepository.getDoctorBySecondName(request.getSecondName());
     }
 
+    @PostMapping("/speciality")
+    public List<Doctor> getDoctorBySpeciality(@RequestBody DoctorModel request) {
+        return doctorRepository.getDoctorBySpeciality(request.getSpeciality());
+    }
+
     @GetMapping("/{id}")
     public Doctor getDoctorById(@PathVariable Long id) {
         return doctorRepository.findById(id).orElse(null);

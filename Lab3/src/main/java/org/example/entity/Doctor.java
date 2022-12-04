@@ -26,6 +26,9 @@ public class Doctor {
     @Column(name = "secondname")
     private String secondName;
 
+    @Column(name = "speciality")
+    private String speciality;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

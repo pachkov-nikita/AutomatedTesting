@@ -27,14 +27,17 @@ public class Builder  implements ApplicationListener<ApplicationReadyEvent> {
                 Doctor.builder()
                         .firstName("Nikita")
                         .secondName("Pachkov")
+                        .speciality("hiryrg")
                         .build(),
                 Doctor.builder()
                         .firstName("Ivan")
                         .secondName("Ivanov")
+                        .speciality("hiryrg")
                         .build(),
                 Doctor.builder()
                         .firstName("Oleg")
                         .secondName("Olegov")
+                        .speciality("lor")
                         .build()
         );
     }
