@@ -70,8 +70,22 @@ public class TimetableControllerTest {
 
     //Test9
     @Test
+    void searchForFreeSlotsBasedOnTheTimeFrameAndSelectedDoctor() throws Exception {
+
+        TimetableModel timetableModel = TimetableModel.builder().doctorId(1L)
+                .from(LocalDateTime.of(2022, Month.DECEMBER, 11, 7, 0))
+                .to(LocalDateTime.of(2022, Month.DECEMBER, 11, 8, 10)).build();
+
+        MvcResult mvcResult = requestWithModel("/timetable/search", timetableModel);
+        List<TimeTable> timeTables = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), new TypeReference<>() {});
+
+        assertThat(timeTables).isEmpty();
+    }
+
+    //Test10
+    @Test
     void createRecord() throws Exception {
-        TimetableModel timetableModel = TimetableModel.builder().doctorId(3L).patientId(5L).ldt(LocalDateTime.of(2022, Month.DECEMBER, 11, 11, 0)).build();
+        TimetableModel timetableModel = TimetableModel.builder().doctorId(3L).patientId(5L).selectedTime(LocalDateTime.of(2022, Month.DECEMBER, 11, 11, 0)).build();
 
         MvcResult mvcResult = requestWithModel("/timetable/timetable", timetableModel);
         TimeTable timeTable = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), new TypeReference<>() {});
@@ -81,6 +95,18 @@ public class TimetableControllerTest {
                         table.getLdt().equals(LocalDateTime.of(2022, Month.DECEMBER, 11, 11, 0)), ""));
     }
 
+
+    //Test11
+    @Test
+    void deleteRecord() throws Exception {
+        TimetableModel timetableModel = TimetableModel.builder().doctorId(2L).patientId(2L).selectedTime(LocalDateTime.of(2022, Month.DECEMBER, 11, 9, 15)).build();
+
+        MvcResult mvcResult = requestWithModel("/timetable/delete", timetableModel);
+        TimeTable timeTable = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), new TypeReference<>() {});
+
+        assertThat(timeTable).isNotNull().has(new Condition<>(table -> table.isVacant() && table.getDoctorId() == 2L  && table.getPatientId() == null &&
+                        table.getLdt().equals(LocalDateTime.of(2022, Month.DECEMBER, 11, 9, 15)), ""));
+    }
 
     private MvcResult commonRequest(String path) throws Exception {
         return mockMvc.perform(get(path))

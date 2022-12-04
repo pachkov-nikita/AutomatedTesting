@@ -25,7 +25,7 @@ public class TimeTable {
     private long doctorId;
 
     @Column(name = "patient_id")
-    private long patientId;
+    private Long patientId;
 
     @Column(name = "data")
     private LocalDateTime ldt;

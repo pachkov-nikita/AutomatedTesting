@@ -31,13 +31,34 @@ public class TimetableController {
         return timetableRepository.findAllByPatientId(id);
     }
 
+    @PostMapping("/search")
+    public List<TimeTable> searchRecord(@RequestBody TimetableModel timetableModel) throws DoctorTimetableException {
+        if (!(timetableModel.getDoctorId() == null)) {
+            return timetableRepository.findAllByDoctorIdAndLdtBetween(timetableModel.getDoctorId(), timetableModel.getFrom(), timetableModel.getTo());
+        }
+        throw new DoctorTimetableException();
+    }
+
     @PostMapping("/timetable")
     public TimeTable createRecord(@RequestBody TimetableModel timetableModel) throws DoctorTimetableException {
-        TimeTable timeTable = timetableRepository.findFirstByDoctorIdAndLdt(timetableModel.getDoctorId(), timetableModel.getLdt());
+        TimeTable timeTable = timetableRepository.findFirstByDoctorIdAndLdt(timetableModel.getDoctorId(), timetableModel.getSelectedTime());
 
         if (!(timeTable == null) && timeTable.isVacant()) {
             timeTable.setPatientId(timetableModel.getPatientId());
             timeTable.setVacant(false);
+            return timetableRepository.save(timeTable);
+        }
+
+        throw new DoctorTimetableException();
+    }
+
+    @PostMapping("/delete")
+    public TimeTable deleteRecord(@RequestBody TimetableModel timetableModel) throws DoctorTimetableException {
+        TimeTable timeTable = timetableRepository.findFirstByDoctorIdAndLdt(timetableModel.getDoctorId(), timetableModel.getSelectedTime());
+
+        if (!(timeTable == null) ) {
+            timeTable.setPatientId(null);
+            timeTable.setVacant(true);
             return timetableRepository.save(timeTable);
         }
 

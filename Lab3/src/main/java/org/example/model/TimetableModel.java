@@ -13,5 +13,8 @@ public class TimetableModel {
     private Long id;
     private Long doctorId;
     private Long patientId;
-    private LocalDateTime ldt;
+    private LocalDateTime selectedTime;
+    private LocalDateTime from;
+    private LocalDateTime to;
+    private boolean vacation;
 }

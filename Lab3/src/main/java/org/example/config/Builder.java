@@ -68,19 +68,19 @@ public class Builder  implements ApplicationListener<ApplicationReadyEvent> {
                         .doctorId(1)
                         .ldt(LocalDateTime.of(2022, Month.DECEMBER, 11, 9, 30))
                         .vacant(false)
-                        .patientId(1)
+                        .patientId(1L)
                         .build(),
                 TimeTable.builder()
                         .doctorId(2)
                         .ldt(LocalDateTime.of(2022, Month.DECEMBER, 11, 9, 15))
                         .vacant(false)
-                        .patientId(2)
+                        .patientId(2L)
                         .build(),
                 TimeTable.builder()
                         .doctorId(2)
                         .ldt(LocalDateTime.of(2022, Month.DECEMBER, 11, 9, 45))
                         .vacant(false)
-                        .patientId(4)
+                        .patientId(4L)
                         .build(),
                 TimeTable.builder()
                         .doctorId(2)
@@ -90,13 +90,13 @@ public class Builder  implements ApplicationListener<ApplicationReadyEvent> {
                         .doctorId(3)
                         .ldt(LocalDateTime.of(2022, Month.DECEMBER, 11, 9, 30))
                         .vacant(false)
-                        .patientId(3)
+                        .patientId(3L)
                         .build(),
                 TimeTable.builder()
                         .doctorId(3)
                         .ldt(LocalDateTime.of(2022, Month.DECEMBER, 11, 10, 15))
                         .vacant(false)
-                        .patientId(4)
+                        .patientId(4L)
                         .build(),
                 TimeTable.builder()
                         .doctorId(3)
