@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.Condition;
 import org.example.entity.TimeTable;
+import org.example.exception.DoctorTimetableException;
 import org.example.model.TimetableModel;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,6 +107,37 @@ public class TimetableControllerTest {
 
         assertThat(timeTable).isNotNull().has(new Condition<>(table -> table.isVacant() && table.getDoctorId() == 2L  && table.getPatientId() == null &&
                         table.getLdt().equals(LocalDateTime.of(2022, Month.DECEMBER, 11, 9, 15)), ""));
+    }
+
+    //Test12
+    @Test
+    void createRecordToNonExistentDate() throws Exception {
+        TimetableModel timetableModel = TimetableModel.builder().doctorId(3L).patientId(5L).selectedTime(LocalDateTime.of(2022, Month.DECEMBER, 13, 11, 0)).build();
+
+        MvcResult mvcResult = requestWithModel("/timetable/timetable", timetableModel);
+
+        assertThat(mvcResult.getResolvedException()).isInstanceOf(DoctorTimetableException.class);
+    }
+
+    //Test13
+    @Test
+    void deleteRecordToNonExistentDate() throws Exception {
+        TimetableModel timetableModel = TimetableModel.builder().doctorId(3L).patientId(5L).selectedTime(LocalDateTime.of(2022, Month.DECEMBER, 13, 11, 0)).build();
+
+        MvcResult mvcResult = requestWithModel("/timetable/delete", timetableModel);
+
+        assertThat(mvcResult.getResolvedException()).isInstanceOf(DoctorTimetableException.class);
+    }
+
+    //Test14
+    @Test
+    void timeTableIsNoNull() throws Exception {
+
+        MvcResult mvcResult = commonRequest("/timetable/" + "7");
+
+        TimeTable timetable = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), new TypeReference<>() {});
+
+        assertThat(timetable).isNotNull();
     }
 
     private MvcResult commonRequest(String path) throws Exception {

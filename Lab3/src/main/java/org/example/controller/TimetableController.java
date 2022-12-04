@@ -65,4 +65,9 @@ public class TimetableController {
         throw new DoctorTimetableException();
     }
 
+    @GetMapping("/{id}")
+    public TimeTable getTimeTableById(@PathVariable Long id) {
+        return timetableRepository.findById(id).orElse(null);
+    }
+
 }

@@ -18,8 +18,8 @@ public class TimeTable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "timetable_id")
-    private long timetableId;
+    @Column(name = "id")
+    private long id;
 
     @Column(name = "doctor_id")
     private long doctorId;
