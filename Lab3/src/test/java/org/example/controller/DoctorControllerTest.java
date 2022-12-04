@@ -40,7 +40,7 @@ public class DoctorControllerTest {
 
         Doctor doctorById = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Doctor.class);
 
-        assertThat(doctorById).isNotNull().hasNoNullFieldsOrProperties().has(new Condition<>(d -> d.getFirstName().equals("Ivan"), ""));
+        assertThat(doctorById).isNotNull().hasNoNullFieldsOrProperties().has(new Condition<>(doctor -> doctor.getFirstName().equals("Ivan"), ""));
     }
 
     //Test2
@@ -53,7 +53,7 @@ public class DoctorControllerTest {
         MvcResult mvcResult = requestWithModel("/doctors/firstname", doctorModel);
         List<Doctor> doctorsByFirstName = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), new TypeReference<>() {});
 
-        assertThat(doctorsByFirstName).isNotEmpty().has(new Condition<>(doctors -> doctors.stream().allMatch(d -> d.getFirstName().equals("Ivan")), ""));
+        assertThat(doctorsByFirstName).isNotEmpty().has(new Condition<>(doctor -> doctor.stream().allMatch(doctor1 -> doctor1.getFirstName().equals("Ivan")), ""));
     }
 
     //Test3
@@ -66,7 +66,7 @@ public class DoctorControllerTest {
         MvcResult mvcResult = requestWithModel("/doctors/secondname", doctorModel);
         List<Doctor> doctorBySecondName = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), new TypeReference<>() {});
 
-        assertThat(doctorBySecondName).isNotEmpty().has(new Condition<>(doctors -> doctors.stream().allMatch(d -> d.getSecondName().equals("Ivanov")), ""));
+        assertThat(doctorBySecondName).isNotEmpty().has(new Condition<>(doctor -> doctor.stream().allMatch(doctor1 -> doctor1.getSecondName().equals("Ivanov")), ""));
     }
 
     //Test4
