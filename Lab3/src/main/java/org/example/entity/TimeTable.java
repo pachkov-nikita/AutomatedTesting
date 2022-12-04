@@ -4,27 +4,35 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "doctor")
+@Table(name = "timetable")
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Doctor {
+public class TimeTable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "timetable_id")
+    private long timetableId;
+
     @Column(name = "doctor_id")
-    private long id;
+    private long doctorId;
 
-    @Column(name = "firstname")
-    private String firstName;
+    @Column(name = "patient_id")
+    private long patientId;
 
-    @Column(name = "secondname")
-    private String secondName;
+    @Column(name = "data")
+    private LocalDateTime ldt;
+
+    @Builder.Default
+    @Column(name = "vacant")
+    private boolean vacant = true;
 
     @Override
     public boolean equals(Object o) {

@@ -6,18 +6,18 @@ import org.hibernate.Hibernate;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "doctor")
+@Table(name = "patient")
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Doctor {
+public class Patient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "doctor_id")
+    @Column(name = "patient_id")
     private long id;
 
     @Column(name = "firstname")

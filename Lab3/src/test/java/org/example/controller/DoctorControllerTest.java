@@ -69,7 +69,7 @@ public class DoctorControllerTest {
 
 
     @Test
-    void shouldFetchAllDoctors() throws Exception {
+    void getAllDoctor() throws Exception {
 
         MvcResult mvcResult = commonRequest("/doctors/count");
 
